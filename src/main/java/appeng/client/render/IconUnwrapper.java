@@ -4,7 +4,7 @@ package appeng.client.render;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
-import appeng.client.texture.IAESprite;
+import appeng.api.util.IAESprite;
 
 
 public class IconUnwrapper extends TextureAtlasSprite
@@ -18,8 +18,7 @@ public class IconUnwrapper extends TextureAtlasSprite
 	private final float min_v;
 	private final float max_v;
 
-	protected IconUnwrapper(
-			final IAESprite src )
+	protected IconUnwrapper( final IAESprite src )
 	{
 		super( src.getIconName() );
 		this.width = src.getIconWidth();

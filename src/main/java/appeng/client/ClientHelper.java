@@ -34,7 +34,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -64,7 +63,6 @@ import appeng.api.util.AEColor;
 import appeng.block.AEBaseBlock;
 import appeng.client.render.BaseBlockRender;
 import appeng.client.render.BlockRenderInfo;
-import appeng.client.render.ModelGenerator;
 import appeng.client.render.TESRWrapper;
 import appeng.client.render.blocks.RendererCableBus;
 import appeng.client.render.effects.AssemblerFX;
@@ -100,8 +98,6 @@ import appeng.util.Platform;
 public class ClientHelper extends ServerHelper
 {
 
-	private static final RenderItem ITEM_RENDERER = Minecraft.getMinecraft().getRenderItem();
-	private static final ModelGenerator BLOCK_RENDERER = new ModelGenerator();
 	private final ModelResourceLocation partRenderer = new ModelResourceLocation( new ResourceLocation( AppEng.MOD_ID, "DynamicPartRenderer" ), "inventory" );
 
 	private final Map<Object, List<IconReg>> iconRegistrations = new HashMap<>();
@@ -266,8 +262,7 @@ public class ClientHelper extends ServerHelper
 		inst.entityRenderMap.put( EntityFloatingItem.class, new RenderFloatingItem( inst ) );
 
 		final ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
-		final ItemMeshDefinition imd = new ItemMeshDefinition()
-		{
+		final ItemMeshDefinition imd = new ItemMeshDefinition(){
 
 			@Override
 			public ModelResourceLocation getModelLocation( final ItemStack stack )
@@ -546,7 +541,7 @@ public class ClientHelper extends ServerHelper
 			}
 			catch( final IOException e )
 			{
-				AELog.error( e );
+				AELog.debug( e );
 			}
 		}
 	}

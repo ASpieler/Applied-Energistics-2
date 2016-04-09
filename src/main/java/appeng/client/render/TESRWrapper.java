@@ -28,6 +28,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import appeng.api.util.ModelGenerator;
 import appeng.block.AEBaseBlock;
 import appeng.core.AELog;
 import appeng.tile.AEBaseTile;
@@ -37,7 +38,7 @@ import appeng.tile.AEBaseTile;
 public class TESRWrapper extends TileEntitySpecialRenderer
 {
 
-	private final ModelGenerator renderBlocksInstance = new ModelGenerator();
+	private final ModelGenerator renderBlocksInstance = new BakingModelGenerator();
 	private final BaseBlockRender blkRender;
 	private final double maxDistance;
 
@@ -74,9 +75,9 @@ public class TESRWrapper extends TileEntitySpecialRenderer
 				}
 				catch( final Throwable t )
 				{
-					AELog.severe( "Hi, Looks like there was a crash while rendering something..." );
+					AELog.error( "Hi, Looks like there was a crash while rendering something..." );
 					t.printStackTrace();
-					AELog.severe( "MC will now crash ( probably )!" );
+					AELog.error( "MC will now crash ( probably )!" );
 					throw new IllegalStateException( t );
 				}
 			}

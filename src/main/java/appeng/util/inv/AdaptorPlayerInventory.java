@@ -64,9 +64,9 @@ public class AdaptorPlayerInventory implements IInventory
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing( final int var1 )
+	public ItemStack removeStackFromSlot( final int var1 )
 	{
-		return this.src.getStackInSlotOnClosing( this.min + var1 );
+		return this.src.removeStackFromSlot( this.min + var1 );
 	}
 
 	@Override
@@ -106,16 +106,14 @@ public class AdaptorPlayerInventory implements IInventory
 	}
 
 	@Override
-	public void openInventory(
-			final EntityPlayer player )
+	public void openInventory( final EntityPlayer player )
 	{
 		this.src.openInventory( player );
 
 	}
 
 	@Override
-	public void closeInventory(
-			final EntityPlayer player )
+	public void closeInventory( final EntityPlayer player )
 	{
 		this.src.closeInventory( player );
 	}
@@ -127,22 +125,19 @@ public class AdaptorPlayerInventory implements IInventory
 	}
 
 	@Override
-	public String getCommandSenderName()
+	public String getName()
 	{
-		return this.src.getCommandSenderName();
+		return this.src.getName();
 	}
 
 	@Override
-	public int getField(
-			final int id )
+	public int getField( final int id )
 	{
 		return this.src.getField( id );
 	}
 
 	@Override
-	public void setField(
-			final int id,
-			final int value )
+	public void setField( final int id, final int value )
 	{
 		this.src.setField( id, value );
 	}

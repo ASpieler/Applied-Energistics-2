@@ -14,19 +14,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-import net.minecraftforge.client.model.IModelPart;
-import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.ISmartBlockModel;
 import net.minecraftforge.client.model.ISmartItemModel;
-import net.minecraftforge.client.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
 
 import appeng.api.util.AEPartLocation;
+import appeng.api.util.ModelGenerator;
 import appeng.block.AEBaseBlock;
-import appeng.block.AEBaseTileBlock;
+import appeng.client.render.BakingModelGenerator;
 import appeng.client.render.BlockRenderInfo;
-import appeng.client.render.ModelGenerator;
 import appeng.client.texture.MissingIcon;
 
 
@@ -36,27 +32,13 @@ public class SmartModel implements IBakedModel, ISmartBlockModel, ISmartItemMode
 
 	private final BlockRenderInfo aeRenderer;
 
-	private class DefState implements IModelState
-	{
-
-		@Override
-		public TRSRTransformation apply(
-				final IModelPart part )
-		{
-			return TRSRTransformation.identity();
-		}
-
-	};
-
-	public SmartModel(
-			final BlockRenderInfo rendererInstance )
+	public SmartModel( final BlockRenderInfo rendererInstance )
 	{
 		this.aeRenderer = rendererInstance;
 	}
 
 	@Override
-	public List getFaceQuads(
-			final EnumFacing p_177551_1_ )
+	public List getFaceQuads( final EnumFacing p_177551_1_ )
 	{
 		return Collections.emptyList();
 	}
@@ -86,7 +68,7 @@ public class SmartModel implements IBakedModel, ISmartBlockModel, ISmartItemMode
 	}
 
 	@Override
-	public TextureAtlasSprite getTexture()
+	public TextureAtlasSprite getParticleTexture()
 	{
 		return this.aeRenderer != null ? this.aeRenderer.getTexture( AEPartLocation.UP ).getAtlas() : MissingIcon.getMissing();
 	}
@@ -98,10 +80,9 @@ public class SmartModel implements IBakedModel, ISmartBlockModel, ISmartItemMode
 	}
 
 	@Override
-	public IBakedModel handleItemState(
-			final ItemStack stack )
+	public IBakedModel handleItemState( final ItemStack stack )
 	{
-		final ModelGenerator helper = new ModelGenerator();
+		final ModelGenerator helper = new BakingModelGenerator();
 		final Block blk = Block.getBlockFromItem( stack.getItem() );
 		helper.setRenderBoundsFromBlock( blk );
 		this.aeRenderer.getRendererInstance().renderInventory( blk instanceof AEBaseBlock ? (AEBaseBlock) blk : null, stack, helper, ItemRenderType.INVENTORY, null );
@@ -110,13 +91,12 @@ public class SmartModel implements IBakedModel, ISmartBlockModel, ISmartItemMode
 	}
 
 	@Override
-	public IBakedModel handleBlockState(
-			final IBlockState state )
+	public IBakedModel handleBlockState( final IBlockState state )
 	{
-		final ModelGenerator helper = new ModelGenerator();
+		final ModelGenerator helper = new BakingModelGenerator();
 		final Block blk = state.getBlock();
-		final BlockPos pos = ( (IExtendedBlockState) state ).getValue( AEBaseTileBlock.AE_BLOCK_POS );
-		final IBlockAccess world = ( (IExtendedBlockState) state ).getValue( AEBaseTileBlock.AE_BLOCK_ACCESS );
+		final BlockPos pos = ( (IExtendedBlockState) state ).getValue( AEBaseBlock.AE_BLOCK_POS );
+		final IBlockAccess world = ( (IExtendedBlockState) state ).getValue( AEBaseBlock.AE_BLOCK_ACCESS );
 		helper.setTranslation( -pos.getX(), -pos.getY(), -pos.getZ() );
 		helper.setRenderBoundsFromBlock( blk );
 		helper.setBlockAccess( world );

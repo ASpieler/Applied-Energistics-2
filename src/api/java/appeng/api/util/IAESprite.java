@@ -1,5 +1,5 @@
 
-package appeng.client.texture;
+package appeng.api.util;
 
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -14,8 +14,7 @@ public interface IAESprite
 
 	float getMaxU();
 
-	float getInterpolatedU(
-			double px );
+	float getInterpolatedU( double px );
 
 	float getMinV();
 
@@ -23,8 +22,7 @@ public interface IAESprite
 
 	String getIconName();
 
-	float getInterpolatedV(
-			double px );
+	float getInterpolatedV( double px );
 
 	float getMinU();
 

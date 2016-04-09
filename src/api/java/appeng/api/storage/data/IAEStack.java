@@ -24,11 +24,12 @@
 package appeng.api.storage.data;
 
 
-import io.netty.buffer.ByteBuf;
-
 import java.io.IOException;
 
+import io.netty.buffer.ByteBuf;
+
 import net.minecraft.nbt.NBTTagCompound;
+
 import appeng.api.config.FuzzyMode;
 import appeng.api.storage.StorageChannel;
 
@@ -151,7 +152,7 @@ public interface IAEStack<StackType extends IAEStack>
 	 *
 	 * a IAEItemStack to another AEItemStack or a ItemStack.
 	 *
-	 * @param st   stacks
+	 * @param st stacks
 	 * @param mode used fuzzy mode
 	 *
 	 * @return true if two stacks are equal based on AE Fuzzy Comparison.

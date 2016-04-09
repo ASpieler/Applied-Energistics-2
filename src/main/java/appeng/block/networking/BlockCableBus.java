@@ -72,7 +72,8 @@ import appeng.util.Platform;
 
 // TODO: MFR INTEGRATION
 //@Interface( iface = "powercrystals.minefactoryreloaded.api.rednet.connectivity.IRedNetConnection", iname = IntegrationType.MFR )
-public class BlockCableBus extends AEBaseTileBlock // implements IRedNetConnection
+public class BlockCableBus extends AEBaseTileBlock // implements
+// IRedNetConnection
 {
 
 	private static final ICableBusContainer NULL_CABLE_BUS = new NullCableBusContainer();
@@ -82,8 +83,10 @@ public class BlockCableBus extends AEBaseTileBlock // implements IRedNetConnecti
 	/**
 	 * Immibis MB Support.
 	 *
-	 * It will look for a field named ImmibisMicroblocks_TransformableBlockMarker or
-	 * ImmibisMicroblocks_TransformableTileEntityMarker, modifiers, type, etc can be ignored.
+	 * It will look for a field named
+	 * ImmibisMicroblocks_TransformableBlockMarker or
+	 * ImmibisMicroblocks_TransformableTileEntityMarker, modifiers, type, etc
+	 * can be ignored.
 	 */
 	@Reflected
 	private static final boolean ImmibisMicroblocks_TransformableBlockMarker = true;
@@ -94,47 +97,36 @@ public class BlockCableBus extends AEBaseTileBlock // implements IRedNetConnecti
 		this.setLightOpacity( 0 );
 		this.setFullSize( this.setOpaque( false ) );
 
-		// this will actually be overwritten later through setupTile and the combined layers
+		// this will actually be overwritten later through setupTile and the
+		// combined layers
 		this.setTileEntity( TileCableBus.class );
 		this.setFeature( EnumSet.of( AEFeature.Core ) );
 	}
 
 	@Override
-	public void randomDisplayTick(
-			final World worldIn,
-			final BlockPos pos,
-			final IBlockState state,
-			final Random rand )
+	public void randomDisplayTick( final World worldIn, final BlockPos pos, final IBlockState state, final Random rand )
 	{
 		this.cb( worldIn, pos ).randomDisplayTick( worldIn, pos, rand );
 	}
 
 	@Override
-	public void onNeighborChange(
-			final IBlockAccess w,
-			final BlockPos pos,
-			final BlockPos neighbor )
+	public void onNeighborChange( final IBlockAccess w, final BlockPos pos, final BlockPos neighbor )
 	{
 		this.cb( w, pos ).onNeighborChanged();
 	}
 
 	@Override
-	public Item getItemDropped(
-			final IBlockState state,
-			final Random rand,
-			final int fortune )
+	public Item getItemDropped( final IBlockState state, final Random rand, final int fortune )
 	{
 		return null;
 	}
 
 	@Override
-	public int isProvidingWeakPower(
-			final IBlockAccess w,
-			final BlockPos pos,
-			final IBlockState state,
-			final EnumFacing side )
+	public int getWeakPower( final IBlockAccess w, final BlockPos pos, final IBlockState state, final EnumFacing side )
 	{
-		return this.cb( w, pos ).isProvidingWeakPower( side.getOpposite() ); // TODO: IS OPPOSITE!?
+		return this.cb( w, pos ).isProvidingWeakPower( side.getOpposite() ); // TODO:
+		// IS
+		// OPPOSITE!?
 	}
 
 	@Override
@@ -144,29 +136,21 @@ public class BlockCableBus extends AEBaseTileBlock // implements IRedNetConnecti
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(
-			final World w,
-			final BlockPos pos,
-			final IBlockState state,
-			final Entity entityIn )
+	public void onEntityCollidedWithBlock( final World w, final BlockPos pos, final IBlockState state, final Entity entityIn )
 	{
 		this.cb( w, pos ).onEntityCollision( entityIn );
 	}
 
 	@Override
-	public int isProvidingStrongPower(
-			final IBlockAccess w,
-			final BlockPos pos,
-			final IBlockState state,
-			final EnumFacing side )
+	public int getStrongPower( final IBlockAccess w, final BlockPos pos, final IBlockState state, final EnumFacing side )
 	{
-		return this.cb( w, pos ).isProvidingStrongPower( side.getOpposite() ); // TODO: IS OPPOSITE!?
+		return this.cb( w, pos ).isProvidingStrongPower( side.getOpposite() ); // TODO:
+																				// IS
+																				// OPPOSITE!?
 	}
 
 	@Override
-	public int getLightValue(
-			final IBlockAccess world,
-			final BlockPos pos )
+	public int getLightValue( final IBlockAccess world, final BlockPos pos )
 	{
 		final IBlockState block = world.getBlockState( pos );
 		if( block != null && block.getBlock() != this )
@@ -193,19 +177,13 @@ public class BlockCableBus extends AEBaseTileBlock // implements IRedNetConnecti
 	}
 
 	@Override
-	public boolean isReplaceable(
-			final World w,
-			final BlockPos pos )
+	public boolean isReplaceable( final World w, final BlockPos pos )
 	{
 		return this.cb( w, pos ).isEmpty();
 	}
 
 	@Override
-	public boolean removedByPlayer(
-			final World world,
-			final BlockPos pos,
-			final EntityPlayer player,
-			final boolean willHarvest )
+	public boolean removedByPlayer( final World world, final BlockPos pos, final EntityPlayer player, final boolean willHarvest )
 	{
 		if( player.capabilities.isCreativeMode )
 		{
@@ -220,10 +198,7 @@ public class BlockCableBus extends AEBaseTileBlock // implements IRedNetConnecti
 	}
 
 	@Override
-	public boolean canConnectRedstone(
-			final IBlockAccess w,
-			final BlockPos pos,
-			EnumFacing side )
+	public boolean canConnectRedstone( final IBlockAccess w, final BlockPos pos, EnumFacing side )
 	{
 		if( side == null )
 		{
@@ -234,8 +209,7 @@ public class BlockCableBus extends AEBaseTileBlock // implements IRedNetConnecti
 	}
 
 	@Override
-	public boolean canRenderInLayer(
-			final EnumWorldBlockLayer layer )
+	public boolean canRenderInLayer( final EnumWorldBlockLayer layer )
 	{
 		if( AEConfig.instance.isFeatureEnabled( AEFeature.AlphaPass ) )
 		{
@@ -246,10 +220,7 @@ public class BlockCableBus extends AEBaseTileBlock // implements IRedNetConnecti
 	}
 
 	@Override
-	public ItemStack getPickBlock(
-			final MovingObjectPosition target,
-			final World world,
-			final BlockPos pos )
+	public ItemStack getPickBlock( final MovingObjectPosition target, final World world, final BlockPos pos )
 	{
 		final Vec3 v3 = target.hitVec.subtract( pos.getX(), pos.getY(), pos.getZ() );
 		final SelectedPart sp = this.cb( world, pos ).selectPart( v3 );
@@ -277,36 +248,21 @@ public class BlockCableBus extends AEBaseTileBlock // implements IRedNetConnecti
 
 			// TODO HIT EFFECTS
 			/*
-			 * for( AEPartLocation side : AEPartLocation.values() )
-			 * {
-			 * IPart p = host.getPart( side );
-			 * TextureAtlasSprite ico = this.getIcon( p );
-			 * if( ico == null )
-			 * {
-			 * continue;
-			 * }
-			 * byte b0 = (byte) ( Platform.getRandomInt() % 2 == 0 ? 1 : 0 );
-			 * for( int i1 = 0; i1 < b0; ++i1 )
-			 * {
-			 * for( int j1 = 0; j1 < b0; ++j1 )
-			 * {
-			 * for( int k1 = 0; k1 < b0; ++k1 )
-			 * {
-			 * double d0 = target.blockX + ( i1 + 0.5D ) / b0;
-			 * double d1 = target.blockY + ( j1 + 0.5D ) / b0;
-			 * double d2 = target.blockZ + ( k1 + 0.5D ) / b0;
-			 * double dd0 = target.hitVec.xCoord;
-			 * double dd1 = target.hitVec.yCoord;
-			 * double dd2 = target.hitVec.zCoord;
-			 * EntityDiggingFX fx = ( new EntityDiggingFX( world, dd0, dd1, dd2, d0 - target.blockX - 0.5D, d1 -
-			 * target.blockY - 0.5D, d2 - target.blockZ - 0.5D, this, 0 ) ).applyColourMultiplier( target.blockX,
-			 * target.blockY, target.blockZ );
-			 * fx.setParticleIcon( ico );
-			 * effectRenderer.addEffect( fx );
-			 * }
-			 * }
-			 * }
-			 * }
+			 * for( AEPartLocation side : AEPartLocation.values() ) { IPart p =
+			 * host.getPart( side ); TextureAtlasSprite ico = this.getIcon( p );
+			 * if( ico == null ) { continue; } byte b0 = (byte) (
+			 * Platform.getRandomInt() % 2 == 0 ? 1 : 0 ); for( int i1 = 0; i1 <
+			 * b0; ++i1 ) { for( int j1 = 0; j1 < b0; ++j1 ) { for( int k1 = 0;
+			 * k1 < b0; ++k1 ) { double d0 = target.blockX + ( i1 + 0.5D ) / b0;
+			 * double d1 = target.blockY + ( j1 + 0.5D ) / b0; double d2 =
+			 * target.blockZ + ( k1 + 0.5D ) / b0; double dd0 =
+			 * target.hitVec.xCoord; double dd1 = target.hitVec.yCoord; double
+			 * dd2 = target.hitVec.zCoord; EntityDiggingFX fx = ( new
+			 * EntityDiggingFX( world, dd0, dd1, dd2, d0 - target.blockX - 0.5D,
+			 * d1 - target.blockY - 0.5D, d2 - target.blockZ - 0.5D, this, 0 )
+			 * ).applyColourMultiplier( target.blockX, target.blockY,
+			 * target.blockZ ); fx.setParticleIcon( ico );
+			 * effectRenderer.addEffect( fx ); } } } }
 			 */
 		}
 
@@ -314,10 +270,7 @@ public class BlockCableBus extends AEBaseTileBlock // implements IRedNetConnecti
 	}
 
 	@Override
-	public boolean addDestroyEffects(
-			final World world,
-			final BlockPos pos,
-			final EffectRenderer effectRenderer )
+	public boolean addDestroyEffects( final World world, final BlockPos pos, final EffectRenderer effectRenderer )
 	{
 		final Object object = this.cb( world, pos );
 		if( object instanceof IPartHost )
@@ -326,32 +279,16 @@ public class BlockCableBus extends AEBaseTileBlock // implements IRedNetConnecti
 
 			// TODO DESTROY EFFECTS
 			/*
-			 * for( AEPartLocation side : AEPartLocation.values() )
-			 * {
-			 * IPart p = host.getPart( side );
-			 * TextureAtlasSprite ico = this.getIcon( p );
-			 * if( ico == null )
-			 * {
-			 * continue;
-			 * }
-			 * byte b0 = 3;
-			 * for( int i1 = 0; i1 < b0; ++i1 )
-			 * {
-			 * for( int j1 = 0; j1 < b0; ++j1 )
-			 * {
-			 * for( int k1 = 0; k1 < b0; ++k1 )
-			 * {
-			 * double d0 = x + ( i1 + 0.5D ) / b0;
-			 * double d1 = y + ( j1 + 0.5D ) / b0;
-			 * double d2 = z + ( k1 + 0.5D ) / b0;
-			 * EntityDiggingFX fx = ( new EntityDiggingFX( world, d0, d1, d2, d0 - x - 0.5D, d1 - y - 0.5D, d2 - z -
-			 * 0.5D, this, meta ) ).applyColourMultiplier( x, y, z );
-			 * fx.setParticleIcon( ico );
-			 * effectRenderer.addEffect( fx );
-			 * }
-			 * }
-			 * }
-			 * }
+			 * for( AEPartLocation side : AEPartLocation.values() ) { IPart p =
+			 * host.getPart( side ); TextureAtlasSprite ico = this.getIcon( p );
+			 * if( ico == null ) { continue; } byte b0 = 3; for( int i1 = 0; i1
+			 * < b0; ++i1 ) { for( int j1 = 0; j1 < b0; ++j1 ) { for( int k1 =
+			 * 0; k1 < b0; ++k1 ) { double d0 = x + ( i1 + 0.5D ) / b0; double
+			 * d1 = y + ( j1 + 0.5D ) / b0; double d2 = z + ( k1 + 0.5D ) / b0;
+			 * EntityDiggingFX fx = ( new EntityDiggingFX( world, d0, d1, d2, d0
+			 * - x - 0.5D, d1 - y - 0.5D, d2 - z - 0.5D, this, meta )
+			 * ).applyColourMultiplier( x, y, z ); fx.setParticleIcon( ico );
+			 * effectRenderer.addEffect( fx ); } } } }
 			 */
 		}
 
@@ -359,11 +296,7 @@ public class BlockCableBus extends AEBaseTileBlock // implements IRedNetConnecti
 	}
 
 	@Override
-	public void onNeighborBlockChange(
-			final World w,
-			final BlockPos pos,
-			final IBlockState state,
-			final Block neighborBlock )
+	public void onNeighborBlockChange( final World w, final BlockPos pos, final IBlockState state, final Block neighborBlock )
 	{
 		if( Platform.isServer() )
 		{
@@ -395,34 +328,18 @@ public class BlockCableBus extends AEBaseTileBlock // implements IRedNetConnecti
 	}
 
 	@Override
-	public boolean onActivated(
-			final World w,
-			final BlockPos pos,
-			final EntityPlayer player,
-			final EnumFacing side,
-			final float hitX,
-			final float hitY,
-			final float hitZ )
+	public boolean onActivated( final World w, final BlockPos pos, final EntityPlayer player, final EnumFacing side, final float hitX, final float hitY, final float hitZ )
 	{
 		return this.cb( w, pos ).activate( player, new Vec3( hitX, hitY, hitZ ) );
 	}
 
 	@Override
-	public boolean recolorBlock(
-			final World world,
-			final BlockPos pos,
-			final EnumFacing side,
-			final EnumDyeColor color )
+	public boolean recolorBlock( final World world, final BlockPos pos, final EnumFacing side, final EnumDyeColor color )
 	{
 		return this.recolorBlock( world, pos, side, color, null );
 	}
 
-	public boolean recolorBlock(
-			final World world,
-			final BlockPos pos,
-			final EnumFacing side,
-			final EnumDyeColor color,
-			final EntityPlayer who )
+	public boolean recolorBlock( final World world, final BlockPos pos, final EnumFacing side, final EnumDyeColor color, final EntityPlayer who )
 	{
 		try
 		{
@@ -492,9 +409,11 @@ public class BlockCableBus extends AEBaseTileBlock // implements IRedNetConnecti
 	// TODO MFR Integration
 	// @Override
 	// @Method( iname = IntegrationType.MFR )
-	// public RedNetConnectionType getConnectionType( World world, int x, int y, int z, ForgeDirection side )
+	// public RedNetConnectionType getConnectionType( World world, int x, int y,
+	// int z, ForgeDirection side )
 	// {
-	// return this.cb( world, x, y, z ).canConnectRedstone( EnumSet.allOf( ForgeDirection.class ) ) ?
+	// return this.cb( world, x, y, z ).canConnectRedstone( EnumSet.allOf(
+	// ForgeDirection.class ) ) ?
 	// RedNetConnectionType.CableSingle : RedNetConnectionType.None;
 	// }
 	//

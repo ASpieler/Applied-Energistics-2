@@ -47,7 +47,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.oredict.OreDictionary;
 
 import appeng.api.AEApi;
@@ -67,7 +66,6 @@ import appeng.api.util.AEColor;
 import appeng.api.util.DimensionalCoord;
 import appeng.block.misc.BlockPaint;
 import appeng.block.networking.BlockCableBus;
-import appeng.client.render.items.ToolColorApplicatorRender;
 import appeng.core.AEConfig;
 import appeng.core.features.AEFeature;
 import appeng.core.localization.GuiText;
@@ -110,7 +108,8 @@ public class ToolColorApplicator extends AEBasePoweredItem implements IStorageCe
 		this.setFeature( EnumSet.of( AEFeature.ColorApplicator, AEFeature.PoweredTools ) );
 		if( Platform.isClient() )
 		{
-			MinecraftForgeClient.registerItemRenderer( this, new ToolColorApplicatorRender() );
+			// TODO - color applicator
+			// MinecraftForgeClient.registerItemRenderer( this, new ToolColorApplicatorRender() );
 		}
 	}
 
@@ -122,15 +121,7 @@ public class ToolColorApplicator extends AEBasePoweredItem implements IStorageCe
 	}
 
 	@Override
-	public boolean onItemUse(
-			final ItemStack is,
-			final EntityPlayer p,
-			final World w,
-			final BlockPos pos,
-			final EnumFacing side,
-			final float hitX,
-			final float hitY,
-			final float hitZ )
+	public boolean onItemUse( final ItemStack is, final EntityPlayer p, final World w, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ )
 	{
 		final Block blk = w.getBlockState( pos ).getBlock();
 
@@ -303,8 +294,7 @@ public class ToolColorApplicator extends AEBasePoweredItem implements IStorageCe
 					list.add( i );
 				}
 
-				Collections.sort( list, new Comparator<IAEItemStack>()
-				{
+				Collections.sort( list, new Comparator<IAEItemStack>(){
 
 					@Override
 					public int compare( final IAEItemStack a, final IAEItemStack b )

@@ -25,6 +25,7 @@ package appeng.api.networking.security;
 
 
 import net.minecraft.entity.player.EntityPlayer;
+
 import appeng.api.config.SecurityPermissions;
 import appeng.api.networking.IGridCache;
 
@@ -41,7 +42,7 @@ public interface ISecurityGrid extends IGridCache
 	 * Check if a player has permissions.
 	 *
 	 * @param player to be checked player
-	 * @param perm   checked permissions
+	 * @param perm checked permissions
 	 *
 	 * @return true if the player has permissions.
 	 */
@@ -51,7 +52,7 @@ public interface ISecurityGrid extends IGridCache
 	 * Check if a player has permissions.
 	 *
 	 * @param playerID id of player
-	 * @param perm     checked permissions
+	 * @param perm checked permissions
 	 *
 	 * @return true if the player has permissions.
 	 */

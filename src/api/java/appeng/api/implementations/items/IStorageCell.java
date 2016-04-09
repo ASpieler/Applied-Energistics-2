@@ -25,6 +25,7 @@ package appeng.api.implementations.items;
 
 
 import net.minecraft.item.ItemStack;
+
 import appeng.api.storage.ICellWorkbenchItem;
 import appeng.api.storage.data.IAEItemStack;
 
@@ -76,7 +77,7 @@ public interface IStorageCell extends ICellWorkbenchItem
 	 * don't care, just return false; As the handler for this type of cell is
 	 * still the default cells, the normal AE black list is also applied.
 	 *
-	 * @param cellItem          item
+	 * @param cellItem item
 	 * @param requestedAddition requested addition
 	 *
 	 * @return true to preventAdditionOfItem

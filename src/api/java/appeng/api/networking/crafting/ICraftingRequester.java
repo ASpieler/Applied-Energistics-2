@@ -24,11 +24,11 @@
 package appeng.api.networking.crafting;
 
 
+import com.google.common.collect.ImmutableSet;
+
 import appeng.api.config.Actionable;
 import appeng.api.networking.security.IActionHost;
 import appeng.api.storage.data.IAEItemStack;
-
-import com.google.common.collect.ImmutableSet;
 
 
 public interface ICraftingRequester extends IActionHost
@@ -47,7 +47,7 @@ public interface ICraftingRequester extends IActionHost
 	 * be returned.
 	 *
 	 * @param items item
-	 * @param mode  action mode
+	 * @param mode action mode
 	 *
 	 * @return unwanted item
 	 */

@@ -287,10 +287,10 @@ public class ContainerCellWorkbench extends ContainerUpgradeable
 		}
 
 		@Override
-		public ItemStack getStackInSlotOnClosing( final int i )
+		public ItemStack removeStackFromSlot( final int i )
 		{
 			final IInventory inv = ContainerCellWorkbench.this.getCellUpgradeInventory();
-			final ItemStack is = inv.getStackInSlotOnClosing( i );
+			final ItemStack is = inv.removeStackFromSlot( i );
 			inv.markDirty();
 			return is;
 		}
@@ -304,7 +304,7 @@ public class ContainerCellWorkbench extends ContainerUpgradeable
 		}
 
 		@Override
-		public String getCommandSenderName()
+		public String getName()
 		{
 			return "Upgrades";
 		}
@@ -334,15 +334,13 @@ public class ContainerCellWorkbench extends ContainerUpgradeable
 		}
 
 		@Override
-		public void openInventory(
-				final EntityPlayer player )
+		public void openInventory( final EntityPlayer player )
 		{
 
 		}
 
 		@Override
-		public void closeInventory(
-				final EntityPlayer player )
+		public void closeInventory( final EntityPlayer player )
 		{
 
 		}
@@ -360,16 +358,13 @@ public class ContainerCellWorkbench extends ContainerUpgradeable
 		}
 
 		@Override
-		public int getField(
-				final int id )
+		public int getField( final int id )
 		{
 			return 0;
 		}
 
 		@Override
-		public void setField(
-				final int id,
-				final int value )
+		public void setField( final int id, final int value )
 		{
 
 		}

@@ -26,11 +26,11 @@ import io.netty.buffer.ByteBuf;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 
 import appeng.api.implementations.tiles.ICrankable;
@@ -41,7 +41,7 @@ import appeng.tile.events.TileEventType;
 import appeng.util.Platform;
 
 
-public class TileCrank extends AEBaseTile implements ICustomCollision, IUpdatePlayerListBox
+public class TileCrank extends AEBaseTile implements ICustomCollision, ITickable
 {
 
 	private final int ticksPerRotation = 18;
@@ -154,11 +154,7 @@ public class TileCrank extends AEBaseTile implements ICustomCollision, IUpdatePl
 	}
 
 	@Override
-	public Iterable<AxisAlignedBB> getSelectedBoundingBoxesFromPool(
-			final World w,
-			final BlockPos pos,
-			final Entity thePlayer,
-			final boolean b )
+	public Iterable<AxisAlignedBB> getSelectedBoundingBoxesFromPool( final World w, final BlockPos pos, final Entity thePlayer, final boolean b )
 	{
 		final double xOff = -0.15 * this.getUp().getFrontOffsetX();
 		final double yOff = -0.15 * this.getUp().getFrontOffsetY();
@@ -167,12 +163,7 @@ public class TileCrank extends AEBaseTile implements ICustomCollision, IUpdatePl
 	}
 
 	@Override
-	public void addCollidingBlockToList(
-			final World w,
-			final BlockPos pos,
-			final AxisAlignedBB bb,
-			final List<AxisAlignedBB> out,
-			final Entity e )
+	public void addCollidingBlockToList( final World w, final BlockPos pos, final AxisAlignedBB bb, final List<AxisAlignedBB> out, final Entity e )
 	{
 		final double xOff = -0.15 * this.getUp().getFrontOffsetX();
 		final double yOff = -0.15 * this.getUp().getFrontOffsetY();

@@ -66,7 +66,7 @@ import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IItemList;
 import appeng.api.util.AEPartLocation;
 import appeng.api.util.IConfigManager;
-import appeng.client.render.ModelGenerator;
+import appeng.api.util.ModelGenerator;
 import appeng.client.texture.CableBusTextures;
 import appeng.core.settings.TickRates;
 import appeng.core.stats.Achievements;
@@ -408,16 +408,6 @@ public class PartStorageBus extends PartUpgradeable implements IGridTickable, IC
 			return this.handler;
 		}
 
-		try
-		{
-			// force grid to update handlers...
-			this.getProxy().getGrid().postEvent( new MENetworkCellArrayUpdate() );
-		}
-		catch( final GridAccessException e )
-		{
-			// :3
-		}
-
 		this.handlerHash = newHandlerHash;
 		this.handler = null;
 		this.monitor = null;
@@ -498,6 +488,16 @@ public class PartStorageBus extends PartUpgradeable implements IGridTickable, IC
 			{
 				// :(
 			}
+		}
+
+		try
+		{
+			// force grid to update handlers...
+			this.getProxy().getGrid().postEvent( new MENetworkCellArrayUpdate() );
+		}
+		catch( final GridAccessException e )
+		{
+			// :3
 		}
 
 		return this.handler;

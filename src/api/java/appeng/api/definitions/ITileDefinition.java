@@ -1,9 +1,10 @@
+
 package appeng.api.definitions;
 
 
-import net.minecraft.tileentity.TileEntity;
-
 import com.google.common.base.Optional;
+
+import net.minecraft.tileentity.TileEntity;
 
 
 public interface ITileDefinition extends IBlockDefinition

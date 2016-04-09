@@ -30,12 +30,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 
+import appeng.api.util.ModelGenerator;
 import appeng.block.storage.BlockSkyChest;
 import appeng.block.storage.BlockSkyChest.SkyChestType;
+import appeng.client.ItemRenderType;
 import appeng.client.render.BaseBlockRender;
-import appeng.client.render.ModelGenerator;
 import appeng.tile.storage.TileSkyChest;
 
 
@@ -44,10 +44,7 @@ public class RenderBlockSkyChest extends BaseBlockRender<BlockSkyChest, TileSkyC
 
 	private static final ResourceLocation SKY_STONE_CHEST = new ResourceLocation( "appliedenergistics2", "textures/models/skychest.png" );
 	private static final ResourceLocation SKY_BLOCK_CHEST = new ResourceLocation( "appliedenergistics2", "textures/models/skyblockchest.png" );
-	private static final ResourceLocation[] METADATA_TO_TEXTURE = {
-			SKY_STONE_CHEST,
-			SKY_BLOCK_CHEST
-	};
+	private static final ResourceLocation[] METADATA_TO_TEXTURE = { SKY_STONE_CHEST, SKY_BLOCK_CHEST };
 
 	private final ModelChest model = new ModelChest();
 

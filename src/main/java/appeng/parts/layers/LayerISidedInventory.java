@@ -163,7 +163,7 @@ public class LayerISidedInventory extends LayerBase implements ISidedInventory
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing( final int slot )
+	public ItemStack removeStackFromSlot( final int slot )
 	{
 		return null;
 	}
@@ -180,7 +180,7 @@ public class LayerISidedInventory extends LayerBase implements ISidedInventory
 	}
 
 	@Override
-	public String getCommandSenderName()
+	public String getName()
 	{
 		return "AEMultiPart";
 	}
@@ -269,16 +269,13 @@ public class LayerISidedInventory extends LayerBase implements ISidedInventory
 	}
 
 	@Override
-	public int getField(
-			final int id )
+	public int getField( final int id )
 	{
 		return 0;
 	}
 
 	@Override
-	public void setField(
-			final int id,
-			final int value )
+	public void setField( final int id, final int value )
 	{
 
 	}

@@ -126,7 +126,7 @@ public class AppEngInternalAEInventory implements IInventory, Iterable<ItemStack
 			}
 			catch( final Exception e )
 			{
-				AELog.error( e );
+				AELog.debug( e );
 			}
 		}
 	}
@@ -178,7 +178,7 @@ public class AppEngInternalAEInventory implements IInventory, Iterable<ItemStack
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing( final int var1 )
+	public ItemStack removeStackFromSlot( final int var1 )
 	{
 		return null;
 	}
@@ -219,7 +219,7 @@ public class AppEngInternalAEInventory implements IInventory, Iterable<ItemStack
 	}
 
 	@Override
-	public String getCommandSenderName()
+	public String getName()
 	{
 		return "appeng-internal";
 	}
@@ -275,30 +275,25 @@ public class AppEngInternalAEInventory implements IInventory, Iterable<ItemStack
 	}
 
 	@Override
-	public void openInventory(
-			final EntityPlayer player )
+	public void openInventory( final EntityPlayer player )
 	{
 
 	}
 
 	@Override
-	public void closeInventory(
-			final EntityPlayer player )
+	public void closeInventory( final EntityPlayer player )
 	{
 
 	}
 
 	@Override
-	public int getField(
-			final int id )
+	public int getField( final int id )
 	{
 		return 0;
 	}
 
 	@Override
-	public void setField(
-			final int id,
-			final int value )
+	public void setField( final int id, final int value )
 	{
 
 	}

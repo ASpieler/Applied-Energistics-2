@@ -26,6 +26,7 @@ package appeng.api.storage;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+
 import appeng.api.IAppEngApi;
 import appeng.api.networking.security.BaseActionSource;
 
@@ -46,10 +47,10 @@ public interface IExternalStorageRegistry
 	void addExternalStorageInterface( IExternalStorageHandler esh );
 
 	/**
-	 * @param te       tile entity
+	 * @param te tile entity
 	 * @param opposite direction
-	 * @param channel  channel
-	 * @param mySrc    source
+	 * @param channel channel
+	 * @param mySrc source
 	 *
 	 * @return the handler for a given tile / forge direction
 	 */

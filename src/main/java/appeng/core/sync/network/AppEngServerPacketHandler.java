@@ -48,16 +48,14 @@ public final class AppEngServerPacketHandler extends AppEngPacketHandlerBase imp
 			final int packetType = stream.readInt();
 			final AppEngPacket pack = PacketTypes.getPacket( packetType ).parsePacket( stream );
 
-			final PacketCallState callState =
-					new PacketCallState(){
+			final PacketCallState callState = new PacketCallState(){
 
-						@Override
-						public void call(
-								final AppEngPacket appEngPacket )
-						{
-							appEngPacket.serverPacketData( manager, appEngPacket, player );
-						}
-					};
+				@Override
+				public void call( final AppEngPacket appEngPacket )
+				{
+					appEngPacket.serverPacketData( manager, appEngPacket, player );
+				}
+			};
 
 			pack.setCallParam( callState );
 			PacketThreadUtil.checkThreadAndEnqueue( pack, handler, ( (EntityPlayerMP) player ).getServerForPlayer() );
@@ -65,19 +63,19 @@ public final class AppEngServerPacketHandler extends AppEngPacketHandlerBase imp
 		}
 		catch( final InstantiationException e )
 		{
-			AELog.error( e );
+			AELog.debug( e );
 		}
 		catch( final IllegalAccessException e )
 		{
-			AELog.error( e );
+			AELog.debug( e );
 		}
 		catch( final IllegalArgumentException e )
 		{
-			AELog.error( e );
+			AELog.debug( e );
 		}
 		catch( final InvocationTargetException e )
 		{
-			AELog.error( e );
+			AELog.debug( e );
 		}
 	}
 }

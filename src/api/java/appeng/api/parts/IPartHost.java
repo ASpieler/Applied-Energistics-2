@@ -31,6 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
+
 import appeng.api.util.AEColor;
 import appeng.api.util.AEPartLocation;
 import appeng.api.util.DimensionalCoord;
@@ -63,8 +64,8 @@ public interface IPartHost
 	/**
 	 * try to add a new part to the specified side, returns false if it failed to be added.
 	 *
-	 * @param is    new part
-	 * @param side  onto side
+	 * @param is new part
+	 * @param side onto side
 	 * @param owner with owning player
 	 *
 	 * @return null if the item failed to add, the side it was placed on other wise ( may different for cables,
@@ -89,14 +90,14 @@ public interface IPartHost
 	 * @return the part located on the specified side, or null if there is no part.
 	 */
 	IPart getPart( EnumFacing side );
-	
+
 	/**
 	 * removes the part on the side, this doesn't drop it or anything, if you don't do something with it, its just
 	 * "gone" and its never coming back; think about it.
 	 *
 	 * if you want to drop the part you must request it prior to removing it.
 	 *
-	 * @param side           side of part
+	 * @param side side of part
 	 * @param suppressUpdate - used if you need to replace a part's INSTANCE, without really removing it first.
 	 */
 	void removePart( AEPartLocation side, boolean suppressUpdate );

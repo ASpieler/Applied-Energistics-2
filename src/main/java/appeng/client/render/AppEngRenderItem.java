@@ -28,6 +28,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.item.ItemStack;
 
@@ -47,9 +48,7 @@ import appeng.util.ReadableNumberConverter;
  */
 public class AppEngRenderItem extends RenderItem
 {
-	public AppEngRenderItem(
-			final TextureManager textureManager,
-			final ModelManager modelManager )
+	public AppEngRenderItem( final TextureManager textureManager, final ModelManager modelManager )
 	{
 		super( textureManager, modelManager );
 	}
@@ -60,12 +59,7 @@ public class AppEngRenderItem extends RenderItem
 	private IAEItemStack aeStack = null;
 
 	@Override
-	public void renderItemOverlayIntoGUI(
-			final FontRenderer fontRenderer,
-			final ItemStack is,
-			final int xPos,
-			final int yPos,
-			final String text )
+	public void renderItemOverlayIntoGUI( final FontRenderer fontRenderer, final ItemStack is, final int xPos, final int yPos, final String text )
 	{
 		if( is != null )
 		{
@@ -140,12 +134,13 @@ public class AppEngRenderItem extends RenderItem
 	{
 		final WorldRenderer wr = par1Tessellator.getWorldRenderer();
 
-		wr.startDrawingQuads();
-		wr.setColorOpaque_I( par6 );
-		wr.addVertex( par2, par3, 0.0D );
-		wr.addVertex( par2, par3 + par5, 0.0D );
-		wr.addVertex( par2 + par4, par3 + par5, 0.0D );
-		wr.addVertex( par2 + par4, par3, 0.0D );
+		wr.begin( GL11.GL_QUADS, DefaultVertexFormats.ITEM );
+
+		wr.color( ( par6 >> 16 ) & 0xff, ( par6 >> 8 ) & 0xff, ( par6 ) & 0xff, ( par6 >> 24 ) & 0xff ).pos( par2, par3, 0.0D ).endVertex();
+		wr.color( ( par6 >> 16 ) & 0xff, ( par6 >> 8 ) & 0xff, ( par6 ) & 0xff, ( par6 >> 24 ) & 0xff ).pos( par2, par3 + par5, 0.0D ).endVertex();
+		wr.color( ( par6 >> 16 ) & 0xff, ( par6 >> 8 ) & 0xff, ( par6 ) & 0xff, ( par6 >> 24 ) & 0xff ).pos( par2 + par4, par3 + par5, 0.0D ).endVertex();
+		wr.color( ( par6 >> 16 ) & 0xff, ( par6 >> 8 ) & 0xff, ( par6 ) & 0xff, ( par6 >> 24 ) & 0xff ).pos( par2 + par4, par3, 0.0D ).endVertex();
+
 		par1Tessellator.draw();
 	}
 

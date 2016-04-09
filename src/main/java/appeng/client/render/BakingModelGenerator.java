@@ -1,4 +1,3 @@
-
 package appeng.client.render;
 
 
@@ -6,7 +5,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import javax.vecmath.Vector3f;
+import org.lwjgl.util.vector.Vector3f;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -28,17 +27,17 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.IColoredBakedQuad;
 
+import appeng.api.util.IAESprite;
+import appeng.api.util.ModelGenerator;
 import appeng.block.AEBaseBlock;
 import appeng.client.texture.BaseIcon;
-import appeng.client.texture.IAESprite;
 import appeng.client.texture.MissingIcon;
 import appeng.items.AEBaseItem;
 import appeng.items.parts.ItemMultiPart;
 
 
-public class ModelGenerator
+public class BakingModelGenerator implements ModelGenerator
 {
-
 	private static final class CachedModel implements IBakedModel
 	{
 		private final List<BakedQuad>[] faces = new List[6];
@@ -72,9 +71,9 @@ public class ModelGenerator
 		}
 
 		@Override
-		public TextureAtlasSprite getTexture()
+		public TextureAtlasSprite getParticleTexture()
 		{
-			return null;
+			return Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
 		}
 
 		@Override
@@ -90,12 +89,12 @@ public class ModelGenerator
 		}
 
 		@Override
-		public List getFaceQuads(
-				final EnumFacing p_177551_1_ )
+		public List getFaceQuads( final EnumFacing p_177551_1_ )
 		{
 			return this.faces[p_177551_1_.ordinal()];
 		}
 	}
+
 
 	private int uvRotateBottom;
 	private int uvRotateEast;
@@ -125,16 +124,7 @@ public class ModelGenerator
 	private float tx = 0, ty = 0, tz = 0;
 	private final float[] defUVs = { 0, 0, 1, 1 };
 
-	private final float[] quadsUV = {
-			0,
-			0,
-			1,
-			1,
-			0,
-			0,
-			1,
-			1
-	};
+	private final float[] quadsUV = { 0, 0, 1, 1, 0, 0, 1, 1 };
 	private EnumSet<EnumFacing> renderFaces = EnumSet.allOf( EnumFacing.class );
 	private boolean flipTexture = false;
 	private final List<SMFace> faces = new ArrayList();
@@ -145,8 +135,7 @@ public class ModelGenerator
 	private EnumFacing currentFace = EnumFacing.UP;
 	private int color = -1;
 
-	public void setRenderBoundsFromBlock(
-			final Block block )
+	public void setRenderBoundsFromBlock( final Block block )
 	{
 		if( block == null )
 		{
@@ -161,13 +150,7 @@ public class ModelGenerator
 		this.setRenderMaxZ( block.getBlockBoundsMaxZ() );
 	}
 
-	public void setRenderBounds(
-			final double d,
-			final double e,
-			final double f,
-			final double g,
-			final double h,
-			final double i )
+	public void setRenderBounds( final double d, final double e, final double f, final double g, final double h, final double i )
 	{
 		this.setRenderMinX( d );
 		this.setRenderMinY( e );
@@ -177,74 +160,49 @@ public class ModelGenerator
 		this.setRenderMaxZ( i );
 	}
 
-	public void setBrightness(
-			final int i )
+	public void setBrightness( final int i )
 	{
 		this.brightness = i;
 	}
 
-	public void setColorRGBA_F(
-			final int r,
-			final int g,
-			final int b,
-			final float a )
+	public void setColorRGBA_F( final int r, final int g, final int b, final float a )
 	{
 		final int alpha = (int) ( a * 0xff );
-		this.color = alpha << 24 |
-				r << 16 |
-				b << 8 |
-				b;
+		this.color = alpha << 24 | r << 16 | b << 8 | b;
 	}
 
-	public void setColorOpaque_I(
-			final int whiteVariant )
+	public void setColorOpaque_I( final int whiteVariant )
 	{
 		final int alpha = 0xff;
 		this.color = // alpha << 24 |
-		whiteVariant;
+			whiteVariant;
 	}
 
-	public void setColorOpaque(
-			final int r,
-			final int g,
-			final int b )
+	public void setColorOpaque( final int r, final int g, final int b )
 	{
 		final int alpha = 0xff;
 		this.color = // alpha << 24 |
-		r << 16 |
-				g << 8 |
-				b;
+			r << 16 | g << 8 | b;
 	}
 
-	public void setColorOpaque_F(
-			final int r,
-			final int g,
-			final int b )
+	public void setColorOpaque_F( final int r, final int g, final int b )
 	{
 		final int alpha = 0xff;
 		this.color = // alpha << 24 |
-		Math.min( 0xff, Math.max( 0, r ) ) << 16 |
-				Math.min( 0xff, Math.max( 0, g ) ) << 8 |
-				Math.min( 0xff, Math.max( 0, b ) );
+			Math.min( 0xff, Math.max( 0, r ) ) << 16 | Math.min( 0xff, Math.max( 0, g ) ) << 8 | Math.min( 0xff, Math.max( 0, b ) );
 	}
 
-	public void setColorOpaque_F(
-			final float rf,
-			final float bf,
-			final float gf )
+	public void setColorOpaque_F( final float rf, final float bf, final float gf )
 	{
 		final int r = (int) ( rf * 0xff );
 		final int g = (int) ( gf * 0xff );
 		final int b = (int) ( bf * 0xff );
 		final int alpha = 0xff;
 		this.color = // alpha << 24 |
-		Math.min( 0xff, Math.max( 0, r ) ) << 16 |
-				Math.min( 0xff, Math.max( 0, g ) ) << 8 |
-				Math.min( 0xff, Math.max( 0, b ) );
+			Math.min( 0xff, Math.max( 0, r ) ) << 16 | Math.min( 0xff, Math.max( 0, g ) ) << 8 | Math.min( 0xff, Math.max( 0, b ) );
 	}
 
-	public IAESprite getIcon(
-			final ItemStack is )
+	public IAESprite getIcon( final ItemStack is )
 	{
 		final Item it = is.getItem();
 
@@ -272,8 +230,7 @@ public class ModelGenerator
 		return new MissingIcon( is );
 	}
 
-	public IAESprite[] getIcon(
-			final IBlockState state )
+	public IAESprite[] getIcon( final IBlockState state )
 	{
 		final IAESprite[] out = new IAESprite[6];
 
@@ -334,13 +291,7 @@ public class ModelGenerator
 		return this.getIcon( state );
 	}
 
-	public void addVertexWithUV(
-			final EnumFacing face,
-			final double x,
-			final double y,
-			final double z,
-			final double u,
-			final double v )
+	public void addVertexWithUV( final EnumFacing face, final double x, final double y, final double z, final double u, final double v )
 	{
 		this.points[this.point++] = new float[] { (float) x + this.tx, (float) y + this.ty, (float) z + this.tz, (float) u, (float) v };
 
@@ -348,38 +299,38 @@ public class ModelGenerator
 		{
 			this.brightness = -1;
 			final int[] vertData = {
-					Float.floatToRawIntBits( this.points[0][0] ),
-					Float.floatToRawIntBits( this.points[0][1] ),
-					Float.floatToRawIntBits( this.points[0][2] ),
-					this.brightness,
-					Float.floatToRawIntBits( this.points[0][3] ),
-					Float.floatToRawIntBits( this.points[0][4] ),
-					0,
+				Float.floatToRawIntBits( this.points[0][0] ),
+				Float.floatToRawIntBits( this.points[0][1] ),
+				Float.floatToRawIntBits( this.points[0][2] ),
+				this.brightness,
+				Float.floatToRawIntBits( this.points[0][3] ),
+				Float.floatToRawIntBits( this.points[0][4] ),
+				0,
 
-					Float.floatToRawIntBits( this.points[1][0] ),
-					Float.floatToRawIntBits( this.points[1][1] ),
-					Float.floatToRawIntBits( this.points[1][2] ),
-					this.brightness,
-					Float.floatToRawIntBits( this.points[1][3] ),
-					Float.floatToRawIntBits( this.points[1][4] ),
-					0,
+				Float.floatToRawIntBits( this.points[1][0] ),
+				Float.floatToRawIntBits( this.points[1][1] ),
+				Float.floatToRawIntBits( this.points[1][2] ),
+				this.brightness,
+				Float.floatToRawIntBits( this.points[1][3] ),
+				Float.floatToRawIntBits( this.points[1][4] ),
+				0,
 
-					Float.floatToRawIntBits( this.points[2][0] ),
-					Float.floatToRawIntBits( this.points[2][1] ),
-					Float.floatToRawIntBits( this.points[2][2] ),
-					this.brightness,
-					Float.floatToRawIntBits( this.points[2][3] ),
-					Float.floatToRawIntBits( this.points[2][4] ),
-					0,
+				Float.floatToRawIntBits( this.points[2][0] ),
+				Float.floatToRawIntBits( this.points[2][1] ),
+				Float.floatToRawIntBits( this.points[2][2] ),
+				this.brightness,
+				Float.floatToRawIntBits( this.points[2][3] ),
+				Float.floatToRawIntBits( this.points[2][4] ),
+				0,
 
-					Float.floatToRawIntBits( this.points[3][0] ),
-					Float.floatToRawIntBits( this.points[3][1] ),
-					Float.floatToRawIntBits( this.points[3][2] ),
-					this.brightness,
-					Float.floatToRawIntBits( this.points[3][3] ),
-					Float.floatToRawIntBits( this.points[3][4] ),
-					0,
-			};
+				Float.floatToRawIntBits( this.points[3][0] ),
+				Float.floatToRawIntBits( this.points[3][1] ),
+				Float.floatToRawIntBits( this.points[3][2] ),
+				this.brightness,
+				Float.floatToRawIntBits( this.points[3][3] ),
+				Float.floatToRawIntBits( this.points[3][4] ),
+				0,
+				};
 
 			this.generatedModel.general.add( new IColoredBakedQuad.ColoredBakedQuad( vertData, this.color, face ) );
 
@@ -387,9 +338,7 @@ public class ModelGenerator
 		}
 	}
 
-	public boolean renderStandardBlock(
-			final Block block,
-			final BlockPos pos )
+	public boolean renderStandardBlock( final Block block, final BlockPos pos )
 	{
 		// setRenderBoundsFromBlock( block );
 
@@ -406,10 +355,7 @@ public class ModelGenerator
 		return false;
 	}
 
-	public void setTranslation(
-			final int x,
-			final int y,
-			final int z )
+	public void setTranslation( final int x, final int y, final int z )
 	{
 		this.tx = x;
 		this.ty = y;
@@ -421,10 +367,7 @@ public class ModelGenerator
 		return MinecraftForgeClient.getRenderLayer() == EnumWorldBlockLayer.TRANSLUCENT;
 	}
 
-	private float[] getFaceUvs(
-			final EnumFacing face,
-			final Vector3f to_16,
-			final Vector3f from_16 )
+	private float[] getFaceUvs( final EnumFacing face, final Vector3f to_16, final Vector3f from_16 )
 	{
 		float from_a = 0;
 		float from_b = 0;
@@ -478,26 +421,23 @@ public class ModelGenerator
 		to_b = 1.0f - to_b;
 
 		final float[] afloat = {// :P
-		16.0f * ( this.quadsUV[0] + this.quadsUV[2] * from_a + this.quadsUV[4] * from_b ), // 0
-		16.0f * ( this.quadsUV[1] + this.quadsUV[3] * from_a + this.quadsUV[5] * from_b ), // 1
+		                        16.0f * ( this.quadsUV[0] + this.quadsUV[2] * from_a + this.quadsUV[4] * from_b ), // 0
+		                        16.0f * ( this.quadsUV[1] + this.quadsUV[3] * from_a + this.quadsUV[5] * from_b ), // 1
 
-		16.0f * ( this.quadsUV[0] + this.quadsUV[2] * to_a + this.quadsUV[4] * from_b ), // 2
-		16.0f * ( this.quadsUV[1] + this.quadsUV[3] * to_a + this.quadsUV[5] * from_b ), // 3
+		                        16.0f * ( this.quadsUV[0] + this.quadsUV[2] * to_a + this.quadsUV[4] * from_b ), // 2
+		                        16.0f * ( this.quadsUV[1] + this.quadsUV[3] * to_a + this.quadsUV[5] * from_b ), // 3
 
-		16.0f * ( this.quadsUV[0] + this.quadsUV[2] * to_a + this.quadsUV[4] * to_b ), // 2
-		16.0f * ( this.quadsUV[1] + this.quadsUV[3] * to_a + this.quadsUV[5] * to_b ), // 3
+		                        16.0f * ( this.quadsUV[0] + this.quadsUV[2] * to_a + this.quadsUV[4] * to_b ), // 2
+		                        16.0f * ( this.quadsUV[1] + this.quadsUV[3] * to_a + this.quadsUV[5] * to_b ), // 3
 
-		16.0f * ( this.quadsUV[0] + this.quadsUV[2] * from_a + this.quadsUV[4] * to_b ), // 0
-		16.0f * ( this.quadsUV[1] + this.quadsUV[3] * from_a + this.quadsUV[5] * to_b ), // 1
+		                        16.0f * ( this.quadsUV[0] + this.quadsUV[2] * from_a + this.quadsUV[4] * to_b ), // 0
+		                        16.0f * ( this.quadsUV[1] + this.quadsUV[3] * from_a + this.quadsUV[5] * to_b ), // 1
 		};
 
 		return afloat;
 	}
 
-	public void renderFaceXNeg(
-			final Block blk,
-			final BlockPos pos,
-			final IAESprite lights )
+	public void renderFaceXNeg( final Block blk, final BlockPos pos, final IAESprite lights )
 	{
 		final boolean isEdge = this.getRenderMinX() < 0.0001;
 		final Vector3f to = new Vector3f( (float) this.getRenderMinX() * 16.0f, (float) this.getRenderMinY() * 16.0f, (float) this.getRenderMinZ() * 16.0f );
@@ -507,10 +447,7 @@ public class ModelGenerator
 		this.addFace( myFace, isEdge, to, from, this.defUVs, lights );
 	}
 
-	public void renderFaceYNeg(
-			final Block blk,
-			final BlockPos pos,
-			final IAESprite lights )
+	public void renderFaceYNeg( final Block blk, final BlockPos pos, final IAESprite lights )
 	{
 		final boolean isEdge = this.getRenderMinY() < 0.0001;
 		final Vector3f to = new Vector3f( (float) this.getRenderMinX() * 16.0f, (float) this.getRenderMinY() * 16.0f, (float) this.getRenderMinZ() * 16.0f );
@@ -520,10 +457,7 @@ public class ModelGenerator
 		this.addFace( myFace, isEdge, to, from, this.defUVs, lights );
 	}
 
-	public void renderFaceZNeg(
-			final Block blk,
-			final BlockPos pos,
-			final IAESprite lights )
+	public void renderFaceZNeg( final Block blk, final BlockPos pos, final IAESprite lights )
 	{
 		final boolean isEdge = this.getRenderMinZ() < 0.0001;
 		final Vector3f to = new Vector3f( (float) this.getRenderMinX() * 16.0f, (float) this.getRenderMinY() * 16.0f, (float) this.getRenderMinZ() * 16.0f );
@@ -533,10 +467,7 @@ public class ModelGenerator
 		this.addFace( myFace, isEdge, to, from, this.defUVs, lights );
 	}
 
-	public void renderFaceYPos(
-			final Block blk,
-			final BlockPos pos,
-			final IAESprite lights )
+	public void renderFaceYPos( final Block blk, final BlockPos pos, final IAESprite lights )
 	{
 		final boolean isEdge = this.getRenderMaxY() > 0.9999;
 		final Vector3f to = new Vector3f( (float) this.getRenderMinX() * 16.0f, (float) this.getRenderMaxY() * 16.0f, (float) this.getRenderMinZ() * 16.0f );
@@ -546,10 +477,7 @@ public class ModelGenerator
 		this.addFace( myFace, isEdge, to, from, this.defUVs, lights );
 	}
 
-	public void renderFaceZPos(
-			final Block blk,
-			final BlockPos pos,
-			final IAESprite lights )
+	public void renderFaceZPos( final Block blk, final BlockPos pos, final IAESprite lights )
 	{
 		final boolean isEdge = this.getRenderMaxZ() > 0.9999;
 		final Vector3f to = new Vector3f( (float) this.getRenderMinX() * 16.0f, (float) this.getRenderMinY() * 16.0f, (float) this.getRenderMaxZ() * 16.0f );
@@ -559,10 +487,7 @@ public class ModelGenerator
 		this.addFace( myFace, isEdge, to, from, this.defUVs, lights );
 	}
 
-	public void renderFaceXPos(
-			final Block blk,
-			final BlockPos pos,
-			final IAESprite lights )
+	public void renderFaceXPos( final Block blk, final BlockPos pos, final IAESprite lights )
 	{
 		final boolean isEdge = this.getRenderMaxX() > 0.9999;
 		final Vector3f to = new Vector3f( (float) this.getRenderMaxX() * 16.0f, (float) this.getRenderMinY() * 16.0f, (float) this.getRenderMinZ() * 16.0f );
@@ -572,12 +497,7 @@ public class ModelGenerator
 		this.addFace( myFace, isEdge, to, from, this.defUVs, lights );
 	}
 
-	private void addFace(
-			final EnumFacing face, final boolean isEdge,
-			final Vector3f to,
-			final Vector3f from,
-			final float[] defUVs2,
-			IAESprite texture )
+	private void addFace( final EnumFacing face, final boolean isEdge, final Vector3f to, final Vector3f from, final float[] defUVs2, IAESprite texture )
 	{
 		if( this.getOverrideBlockTexture() != null )
 		{
@@ -587,10 +507,7 @@ public class ModelGenerator
 		this.faces.add( new SMFace( face, isEdge, this.color, to, from, defUVs2, new IconUnwrapper( texture ) ) );
 	}
 
-	public void setNormal(
-			final float x,
-			final float y,
-			final float z )
+	public void setNormal( final float x, final float y, final float z )
 	{
 		if( x > 0.5 )
 		{
@@ -618,8 +535,7 @@ public class ModelGenerator
 		}
 	}
 
-	public void setOverrideBlockTexture(
-			final IAESprite object )
+	public void setOverrideBlockTexture( final IAESprite object )
 	{
 		this.overrideBlockTexture = object;
 	}
@@ -830,5 +746,4 @@ public class ModelGenerator
 	{
 		this.renderFaces = renderFaces;
 	}
-
 }

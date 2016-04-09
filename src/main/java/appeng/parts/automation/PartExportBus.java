@@ -52,7 +52,7 @@ import appeng.api.parts.IPartRenderHelper;
 import appeng.api.storage.IMEInventory;
 import appeng.api.storage.IMEMonitor;
 import appeng.api.storage.data.IAEItemStack;
-import appeng.client.render.ModelGenerator;
+import appeng.api.util.ModelGenerator;
 import appeng.client.texture.CableBusTextures;
 import appeng.core.AELog;
 import appeng.core.settings.TickRates;
@@ -174,13 +174,6 @@ public class PartExportBus extends PartSharedItemBus implements ICraftingRequest
 		catch( final GridAccessException e )
 		{
 			// :P
-		}
-
-		final int failedAttempts = this.craftingTracker.getFailedCraftingAttempts();
-
-		if( this.isCraftingEnabled() && failedAttempts > 0 )
-		{
-			return this.getFailedCraftingPenalty( failedAttempts );
 		}
 
 		return this.didSomething ? TickRateModulation.FASTER : TickRateModulation.SLOWER;
@@ -305,7 +298,7 @@ public class PartExportBus extends PartSharedItemBus implements ICraftingRequest
 		}
 		catch( final GridAccessException e )
 		{
-			AELog.error( e );
+			AELog.debug( e );
 		}
 
 		return items;
@@ -386,19 +379,5 @@ public class PartExportBus extends PartSharedItemBus implements ICraftingRequest
 		{
 			this.nextSlot = ( this.nextSlot + x ) % this.availableSlots();
 		}
-	}
-
-	private TickRateModulation getFailedCraftingPenalty( final int failedAttempts )
-	{
-		if( failedAttempts > 5 )
-		{
-			return TickRateModulation.SLOWER;
-		}
-		else if( failedAttempts > 1 )
-		{
-			return TickRateModulation.SAME;
-		}
-
-		return TickRateModulation.FASTER;
 	}
 }

@@ -60,7 +60,7 @@ import appeng.api.storage.IStorageMonitorable;
 import appeng.api.storage.data.IAEFluidStack;
 import appeng.api.storage.data.IAEItemStack;
 import appeng.api.util.IConfigManager;
-import appeng.client.render.ModelGenerator;
+import appeng.api.util.ModelGenerator;
 import appeng.client.texture.CableBusTextures;
 import appeng.core.sync.GuiBridge;
 import appeng.helpers.DualityInterface;
@@ -270,9 +270,9 @@ public class PartInterface extends PartBasicState implements IGridTickable, ISto
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing( final int i )
+	public ItemStack removeStackFromSlot( final int i )
 	{
-		return this.duality.getStorage().getStackInSlotOnClosing( i );
+		return this.duality.getStorage().removeStackFromSlot( i );
 	}
 
 	@Override
@@ -282,9 +282,9 @@ public class PartInterface extends PartBasicState implements IGridTickable, ISto
 	}
 
 	@Override
-	public String getCommandSenderName()
+	public String getName()
 	{
-		return this.duality.getStorage().getCommandSenderName();
+		return this.duality.getStorage().getName();
 	}
 
 	@Override
@@ -426,16 +426,13 @@ public class PartInterface extends PartBasicState implements IGridTickable, ISto
 	}
 
 	@Override
-	public int getField(
-			final int id )
+	public int getField( final int id )
 	{
 		return 0;
 	}
 
 	@Override
-	public void setField(
-			final int id,
-			final int value )
+	public void setField( final int id, final int value )
 	{
 
 	}

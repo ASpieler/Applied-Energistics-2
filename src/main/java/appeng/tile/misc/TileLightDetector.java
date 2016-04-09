@@ -19,7 +19,7 @@
 package appeng.tile.misc;
 
 
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 
 import appeng.tile.AEBaseTile;
 import appeng.tile.TileEvent;
@@ -27,7 +27,7 @@ import appeng.tile.events.TileEventType;
 import appeng.util.Platform;
 
 
-public class TileLightDetector extends AEBaseTile implements IUpdatePlayerListBox
+public class TileLightDetector extends AEBaseTile implements ITickable
 {
 
 	private int lastCheck = 30;

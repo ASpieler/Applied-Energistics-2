@@ -27,6 +27,7 @@ package appeng.api.features;
 import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
+
 import appeng.api.config.TunnelType;
 
 
@@ -41,7 +42,7 @@ public interface IP2PTunnelRegistry
 	 * attunements for AE's P2P Tunnels
 	 *
 	 * @param trigger - the item which triggers attunement. Nullable, but then ignored
-	 * @param type    - the type of tunnel. Nullable, but then ignored
+	 * @param type - the type of tunnel. Nullable, but then ignored
 	 */
 	void addNewAttunement( @Nullable ItemStack trigger, @Nullable TunnelType type );
 

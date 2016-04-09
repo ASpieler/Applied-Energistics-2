@@ -20,25 +20,24 @@ package appeng.client.render.items;
 
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.IItemRenderer;
+
+import appeng.client.ItemRenderType;
 
 
-public class ToolColorApplicatorRender implements IItemRenderer
+public class ToolColorApplicatorRender
 {
 
-	@Override
 	public boolean handleRenderType( final ItemStack item, final ItemRenderType type )
 	{
 		return true;
 	}
 
-	@Override
-	public boolean shouldUseRenderHelper( final ItemRenderType type, final ItemStack item, final ItemRendererHelper helper )
+	public boolean shouldUseRenderHelper( final ItemRenderType type, final ItemStack item )
 	{
-		return helper == ItemRendererHelper.ENTITY_BOBBING || helper == ItemRendererHelper.ENTITY_ROTATION;
+		return false;// return helper == ItemRendererHelper.ENTITY_BOBBING || helper ==
+						// ItemRendererHelper.ENTITY_ROTATION;
 	}
 
-	@Override
 	public void renderItem( final ItemRenderType type, final ItemStack item, final Object... data )
 	{
 		/*

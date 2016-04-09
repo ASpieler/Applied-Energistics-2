@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -53,8 +52,8 @@ import appeng.api.parts.IPart;
 import appeng.api.parts.IPartHelper;
 import appeng.api.parts.IPartItem;
 import appeng.api.util.AEColor;
+import appeng.api.util.IAESprite;
 import appeng.client.texture.BaseIcon;
-import appeng.client.texture.IAESprite;
 import appeng.client.texture.MissingIcon;
 import appeng.core.AEConfig;
 import appeng.core.AppEng;
@@ -195,8 +194,7 @@ public final class ItemMultiPart extends AEBaseItem implements IPartItem, IItemG
 
 	@Override
 	@SideOnly( Side.CLIENT )
-	public void registerCustomIcon(
-			final TextureMap map )
+	public void registerCustomIcon( final TextureMap map )
 	{
 		for( final Entry<Integer, PartTypeWithVariant> part : this.registered.entrySet() )
 		{
@@ -391,10 +389,7 @@ public final class ItemMultiPart extends AEBaseItem implements IPartItem, IItemG
 		@Override
 		public String toString()
 		{
-			return "PartTypeWithVariant{" +
-					"part=" + this.part +
-					", variant=" + this.variant +
-					'}';
+			return "PartTypeWithVariant{" + "part=" + this.part + ", variant=" + this.variant + '}';
 		}
 	}
 

@@ -19,6 +19,9 @@
 package appeng.client.texture;
 
 
+import appeng.api.util.IAESprite;
+
+
 public class TmpFlippableIcon extends FlippableIcon
 {
 
@@ -27,6 +30,7 @@ public class TmpFlippableIcon extends FlippableIcon
 		super( null );
 	}
 
+	@Override
 	public void setOriginal( IAESprite i )
 	{
 		this.setFlip( false, false );

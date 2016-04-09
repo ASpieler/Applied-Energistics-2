@@ -52,8 +52,8 @@ import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IAEStack;
 import appeng.api.storage.data.IItemList;
 import appeng.api.util.AEPartLocation;
+import appeng.api.util.ModelGenerator;
 import appeng.client.ClientHelper;
-import appeng.client.render.ModelGenerator;
 import appeng.core.AELog;
 import appeng.core.localization.PlayerMessages;
 import appeng.helpers.Reflected;
@@ -369,13 +369,12 @@ public abstract class AbstractPartMonitor extends AbstractPartDisplay implements
 			GL11.glDisable( GL11.GL_LIGHTING );
 			GL11.glDisable( GL12.GL_RESCALE_NORMAL );
 			// RenderHelper.enableGUIStandardItemLighting();
-			wr.setColorOpaque_F( 1.0f, 1.0f, 1.0f );
 
 			ClientHelper.proxy.doRenderItem( sis, this.getTile().getWorld() );
 		}
 		catch( final Exception e )
 		{
-			AELog.error( e );
+			AELog.debug( e );
 		}
 		finally
 		{

@@ -15,38 +15,42 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Applied Energistics 2.  If not, see <http://www.gnu.org/licenses/lgpl>.
  */
-apply plugin: 'net.minecraftforge.gradle.forge'
-
-apply from: 'gradle/scripts/dependencies.gradle'
-apply from: 'gradle/scripts/artifacts.gradle'
-apply from: 'gradle/scripts/autoinstallruntime.gradle'
-apply from: 'gradle/scripts/integration.gradle'
-apply from: 'gradle/scripts/optional.gradle'
 
 buildscript {
     repositories {
         mavenLocal()
-        mavenCentral()
         jcenter()
-
+        mavenCentral()
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
-
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
     }
-
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
     }
 }
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    testCompile "junit:junit:4.12"
+}
+
+//apply from: 'gradle/scripts/dependencies.gradle'
+apply from: 'gradle/scripts/artifacts.gradle'
+//apply from: 'gradle/scripts/autoinstallruntime.gradle'
+apply from: 'gradle/scripts/integration.gradle'
+//apply from: 'gradle/scripts/optional.gradle'
+
 
 sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_6
+targetCompatibility = JavaVersion.VERSION_1_8
 
 version = aeversion + "-" + aechannel + "-" + aebuild
 group = aegroup
@@ -63,7 +67,6 @@ if (hasProperty("teamcity")) {
 // Add Coremod Manifest
 jar {
     manifest {
-        attributes 'FMLCorePlugin': 'appeng.transformer.AppEngCore'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 
@@ -75,16 +78,21 @@ jar {
 }
 
 minecraft {
+    coreMod = "appeng.transformer.AppEngCore"
+
     version = minecraft_version + "-" + forge_version
 
     replaceIn "AEConfig.java"
+    replaceIn "package-info.java"
+
     replace "@version@", project.version
+    replace "@aeversion@", aeversion
     replace "@aechannel@", aechannel
+    replace "@aebuild@", aebuild
 
     // used when launching minecraft in dev env
     runDir = "run"
-
-    mappings = "snapshot_20150928"
+    mappings = mcp_mappings
 }
 
 sourceSets {

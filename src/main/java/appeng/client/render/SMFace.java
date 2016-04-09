@@ -2,7 +2,7 @@
 package appeng.client.render;
 
 
-import javax.vecmath.Vector3f;
+import org.lwjgl.util.vector.Vector3f;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
@@ -23,13 +23,7 @@ public class SMFace
 
 	private final int color;
 
-	public SMFace(
-			final EnumFacing face, final boolean isEdge,
-			final int color,
-			final Vector3f to,
-			final Vector3f from,
-			final float[] defUVs2,
-			final TextureAtlasSprite iconUnwrapper )
+	public SMFace( final EnumFacing face, final boolean isEdge, final int color, final Vector3f to, final Vector3f from, final float[] defUVs2, final TextureAtlasSprite iconUnwrapper )
 	{
 		this.color = color;
 		this.face = face;

@@ -30,13 +30,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.world.World;
-import net.minecraftforge.client.MinecraftForgeClient;
 
 import appeng.api.config.SecurityPermissions;
 import appeng.api.features.IPlayerRegistry;
 import appeng.api.implementations.items.IBiometricCard;
 import appeng.api.networking.security.ISecurityRegistry;
-import appeng.client.render.items.ToolBiometricCardRender;
 import appeng.core.features.AEFeature;
 import appeng.core.localization.GuiText;
 import appeng.items.AEBaseItem;
@@ -52,7 +50,8 @@ public class ToolBiometricCard extends AEBaseItem implements IBiometricCard
 
 		if( Platform.isClient() )
 		{
-			MinecraftForgeClient.registerItemRenderer( this, new ToolBiometricCardRender() );
+			// TODO - PORT ToolBiometricCardRender
+			// MinecraftForgeClient.registerItemRenderer( this, new ToolBiometricCardRender() );
 		}
 	}
 

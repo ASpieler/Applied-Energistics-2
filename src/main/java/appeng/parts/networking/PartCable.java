@@ -53,12 +53,12 @@ import appeng.api.util.AECableType;
 import appeng.api.util.AEColor;
 import appeng.api.util.AEColoredItemDefinition;
 import appeng.api.util.AEPartLocation;
+import appeng.api.util.IAESprite;
 import appeng.api.util.IReadOnlyCollection;
+import appeng.api.util.ModelGenerator;
 import appeng.block.AEBaseBlock;
-import appeng.client.render.ModelGenerator;
 import appeng.client.texture.CableBusTextures;
 import appeng.client.texture.FlippableIcon;
-import appeng.client.texture.IAESprite;
 import appeng.client.texture.TaughtIcon;
 import appeng.items.parts.ItemMultiPart;
 import appeng.me.GridAccessException;
@@ -153,8 +153,7 @@ public class PartCable extends AEBasePart implements IPartCable
 	}
 
 	@Override
-	public void setValidSides(
-			final EnumSet<EnumFacing> sides )
+	public void setValidSides( final EnumSet<EnumFacing> sides )
 	{
 		this.getProxy().setValidSides( sides );
 	}

@@ -21,7 +21,6 @@ package appeng.client.render;
 
 import java.nio.FloatBuffer;
 import java.util.EnumSet;
-
 import javax.annotation.Nullable;
 
 import org.lwjgl.BufferUtils;
@@ -39,15 +38,15 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import appeng.api.util.AEPartLocation;
+import appeng.api.util.IAESprite;
 import appeng.api.util.IOrientable;
+import appeng.api.util.ModelGenerator;
 import appeng.block.AEBaseBlock;
 import appeng.client.texture.ExtraBlockTextures;
-import appeng.client.texture.IAESprite;
 import appeng.core.AppEng;
 import appeng.tile.AEBaseTile;
 import appeng.util.Platform;
@@ -284,7 +283,7 @@ public class BaseBlockRender<B extends AEBaseBlock, T extends AEBaseTile>
 		return this.renderDistance;
 	}
 
-	public void renderInventory( final B block, final ItemStack item, final ModelGenerator renderer, final ItemRenderType type, final Object[] data )
+	public void renderInventory( final B block, final ItemStack item, final ModelGenerator renderer, final appeng.client.ItemRenderType type, final Object[] data )
 	{
 		final BlockRenderInfo info = block.getRendererInstance();
 		if( info.isValid() )
@@ -444,11 +443,11 @@ public class BaseBlockRender<B extends AEBaseBlock, T extends AEBaseTile>
 
 	protected void renderBlockBounds( final ModelGenerator renderer,
 
-			double minX, double minY, double minZ,
+	double minX, double minY, double minZ,
 
-			double maxX, double maxY, double maxZ,
+	double maxX, double maxY, double maxZ,
 
-			final EnumFacing x, final EnumFacing y, final EnumFacing z )
+	final EnumFacing x, final EnumFacing y, final EnumFacing z )
 	{
 		minX /= 16.0;
 		minY /= 16.0;
@@ -558,28 +557,28 @@ public class BaseBlockRender<B extends AEBaseBlock, T extends AEBaseTile>
 		final double layerBX = 0.0;
 		final double layerAY = 0.0;
 		this.renderFace( orientation, tess, offsetX, offsetY, offsetZ, layerAX, layerAY, layerAZ, layerBX, layerBY, layerBZ,
-				// u -> u
-				0, 1.0,
-				// v -> v
-				0, edgeThickness, ico, flip );
+		// u -> u
+		0, 1.0,
+		// v -> v
+		0, edgeThickness, ico, flip );
 
 		this.renderFace( orientation, tess, offsetX, offsetY, offsetZ, layerAX, layerAY, layerAZ, layerBX, layerBY, layerBZ,
-				// u -> u
-				0.0, edgeThickness,
-				// v -> v
-				edgeThickness, 1.0 - edgeThickness, ico, flip );
+		// u -> u
+		0.0, edgeThickness,
+		// v -> v
+		edgeThickness, 1.0 - edgeThickness, ico, flip );
 
 		this.renderFace( orientation, tess, offsetX, offsetY, offsetZ, layerAX, layerAY, layerAZ, layerBX, layerBY, layerBZ,
-				// u -> u
-				1.0 - edgeThickness, 1.0,
-				// v -> v
-				edgeThickness, 1.0 - edgeThickness, ico, flip );
+		// u -> u
+		1.0 - edgeThickness, 1.0,
+		// v -> v
+		edgeThickness, 1.0 - edgeThickness, ico, flip );
 
 		this.renderFace( orientation, tess, offsetX, offsetY, offsetZ, layerAX, layerAY, layerAZ, layerBX, layerBY, layerBZ,
-				// u -> u
-				0, 1.0,
-				// v -> v
-				1.0 - edgeThickness, 1.0, ico, flip );
+		// u -> u
+		0, 1.0,
+		// v -> v
+		1.0 - edgeThickness, 1.0, ico, flip );
 	}
 
 	@SideOnly( Side.CLIENT )

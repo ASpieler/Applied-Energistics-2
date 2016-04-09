@@ -43,15 +43,6 @@ public final class AECommand extends CommandBase
 		return 0;
 	}
 
-	/**
-	 * wtf?
-	 */
-	@Override
-	public int compareTo( final Object arg0 )
-	{
-		return 1;
-	}
-
 	@Override
 	public String getCommandName()
 	{
@@ -65,9 +56,7 @@ public final class AECommand extends CommandBase
 	}
 
 	@Override
-	public void processCommand(
-			final ICommandSender sender,
-			final String[] args ) throws CommandException
+	public void processCommand( final ICommandSender sender, final String[] args ) throws CommandException
 	{
 		if( args.length == 0 )
 		{

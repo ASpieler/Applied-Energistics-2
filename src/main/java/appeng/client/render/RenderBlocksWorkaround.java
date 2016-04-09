@@ -27,7 +27,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 
 @SideOnly( Side.CLIENT )
-public class RenderBlocksWorkaround extends ModelGenerator
+public class RenderBlocksWorkaround extends BakingModelGenerator
 {
 
 	private boolean flipTexture;
@@ -36,8 +36,7 @@ public class RenderBlocksWorkaround extends ModelGenerator
 	private EnumSet<EnumFacing> renderFaces;
 	private float opacity;
 
-	public void setTexture(
-			final Object object )
+	public void setTexture( final Object object )
 	{
 		// TODO Auto-generated method stub
 	}

@@ -27,6 +27,7 @@ package appeng.api.implementations.items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
 import appeng.api.implementations.TransitionResult;
 import appeng.api.util.WorldCoord;
 
@@ -88,10 +89,10 @@ public interface ISpatialStorageCell
 	/**
 	 * Perform a spatial swap with the contents of the cell, and the world.
 	 *
-	 * @param is           spatial storage cell
-	 * @param w            world of spatial
-	 * @param min          min coord
-	 * @param max          max coord
+	 * @param is spatial storage cell
+	 * @param w world of spatial
+	 * @param min min coord
+	 * @param max max coord
 	 * @param doTransition transition
 	 *
 	 * @return result of transition

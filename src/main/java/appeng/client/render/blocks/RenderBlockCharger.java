@@ -31,13 +31,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 
 import appeng.api.util.AEPartLocation;
 import appeng.api.util.IOrientable;
+import appeng.api.util.ModelGenerator;
 import appeng.block.misc.BlockCharger;
+import appeng.client.ItemRenderType;
 import appeng.client.render.BaseBlockRender;
-import appeng.client.render.ModelGenerator;
 import appeng.client.texture.ExtraBlockTextures;
 import appeng.core.AELog;
 import appeng.tile.misc.TileCharger;
@@ -159,13 +159,12 @@ public class RenderBlockCharger extends BaseBlockRender<BlockCharger, TileCharge
 
 				GL11.glDisable( GL11.GL_LIGHTING );
 				GL11.glDisable( GL12.GL_RESCALE_NORMAL );
-				tess.setColorOpaque_F( 1.0f, 1.0f, 1.0f );
 
 				this.doRenderItem( sis, tile );
 			}
 			catch( final Exception err )
 			{
-				AELog.error( err );
+				AELog.debug( err );
 			}
 
 			GL11.glPopMatrix();

@@ -25,6 +25,7 @@ package appeng.api.storage;
 
 
 import net.minecraft.item.ItemStack;
+
 import appeng.api.IAppEngApi;
 
 
@@ -66,7 +67,7 @@ public interface ICellRegistry
 	/**
 	 * returns an IMEInventoryHandler for the provided item.
 	 *
-	 * @param is   item with inventory handler
+	 * @param is item with inventory handler
 	 * @param host can be null, or the hosting tile / part.
 	 * @param chan the storage channel to request the handler for.
 	 *

@@ -26,6 +26,7 @@ package appeng.api.implementations.tiles;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.util.EnumFacing;
+
 import appeng.api.networking.crafting.ICraftingPatternDetails;
 
 
@@ -35,8 +36,8 @@ public interface ICraftingMachine
 	/**
 	 * inserts a crafting plan, and the necessary items into the crafting machine.
 	 *
-	 * @param patternDetails    details of pattern
-	 * @param table             crafting table
+	 * @param patternDetails details of pattern
+	 * @param table crafting table
 	 * @param ejectionDirection ejection direction
 	 *
 	 * @return if it was accepted, all or nothing.

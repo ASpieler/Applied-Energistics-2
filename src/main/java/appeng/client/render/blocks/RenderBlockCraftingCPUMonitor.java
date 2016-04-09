@@ -31,9 +31,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 
 import appeng.api.storage.data.IAEItemStack;
+import appeng.api.util.ModelGenerator;
 import appeng.block.crafting.BlockCraftingMonitor;
 import appeng.client.ClientHelper;
-import appeng.client.render.ModelGenerator;
 import appeng.core.AELog;
 import appeng.tile.crafting.TileCraftingMonitorTile;
 import appeng.util.IWideReadableNumberConverter;
@@ -166,13 +166,12 @@ public class RenderBlockCraftingCPUMonitor extends RenderBlockCraftingCPU<BlockC
 			GL11.glDisable( GL11.GL_LIGHTING );
 			GL11.glDisable( GL12.GL_RESCALE_NORMAL );
 			// RenderHelper.enableGUIStandardItemLighting();
-			tess.setColorOpaque_F( 1.0f, 1.0f, 1.0f );
 
 			ClientHelper.proxy.doRenderItem( sis, cmt.getWorld() );
 		}
 		catch( final Exception e )
 		{
-			AELog.error( e );
+			AELog.debug( e );
 		}
 
 		GL11.glPopMatrix();

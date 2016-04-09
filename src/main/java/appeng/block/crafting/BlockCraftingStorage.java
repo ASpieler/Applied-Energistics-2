@@ -27,6 +27,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import appeng.api.util.IAESprite;
 import appeng.client.texture.ExtraBlockTextures;
 import appeng.tile.crafting.TileCraftingStorageTile;
 
@@ -47,28 +48,20 @@ public class BlockCraftingStorage extends BlockCraftingUnit
 	}
 
 	@Override
-	public appeng.client.texture.IAESprite getIcon( final net.minecraft.util.EnumFacing side, final net.minecraft.block.state.IBlockState state )
+	public IAESprite getIcon( final net.minecraft.util.EnumFacing side, final net.minecraft.block.state.IBlockState state )
 	{
 		final boolean formed = (boolean) state.getValue( FORMED );
 		switch( this.type )
 		{
 			default:
 			case STORAGE_1K:
-				return formed ?
-						super.getIcon( side, state ) :
-						ExtraBlockTextures.BlockCraftingStorage1kFit.getIcon();
+				return formed ? super.getIcon( side, state ) : ExtraBlockTextures.BlockCraftingStorage1kFit.getIcon();
 			case STORAGE_4K:
-				return formed ?
-						ExtraBlockTextures.BlockCraftingStorage4k.getIcon() :
-						ExtraBlockTextures.BlockCraftingStorage1kFit.getIcon();
+				return formed ? ExtraBlockTextures.BlockCraftingStorage4k.getIcon() : ExtraBlockTextures.BlockCraftingStorage1kFit.getIcon();
 			case STORAGE_16K:
-				return formed ?
-						ExtraBlockTextures.BlockCraftingStorage16k.getIcon() :
-						ExtraBlockTextures.BlockCraftingStorage16kFit.getIcon();
+				return formed ? ExtraBlockTextures.BlockCraftingStorage16k.getIcon() : ExtraBlockTextures.BlockCraftingStorage16kFit.getIcon();
 			case STORAGE_64K:
-				return formed ?
-						ExtraBlockTextures.BlockCraftingStorage64k.getIcon() :
-						ExtraBlockTextures.BlockCraftingStorage64kFit.getIcon();
+				return formed ? ExtraBlockTextures.BlockCraftingStorage64k.getIcon() : ExtraBlockTextures.BlockCraftingStorage64kFit.getIcon();
 
 		}
 	}

@@ -30,8 +30,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
@@ -93,7 +93,7 @@ import appeng.util.Platform;
 import appeng.util.item.AEFluidStack;
 
 
-public class TileChest extends AENetworkPowerTile implements IMEChest, IFluidHandler, ITerminalHost, IPriorityHost, IConfigManagerHost, IColorableTile, IUpdatePlayerListBox
+public class TileChest extends AENetworkPowerTile implements IMEChest, IFluidHandler, ITerminalHost, IPriorityHost, IConfigManagerHost, IColorableTile, ITickable
 {
 
 	private static final ChestNoHandler NO_HANDLER = new ChestNoHandler();
@@ -842,10 +842,7 @@ public class TileChest extends AENetworkPowerTile implements IMEChest, IFluidHan
 	}
 
 	@Override
-	public boolean recolourBlock(
-			final EnumFacing side,
-			final AEColor newPaintedColor,
-			final EntityPlayer who )
+	public boolean recolourBlock( final EnumFacing side, final AEColor newPaintedColor, final EntityPlayer who )
 	{
 		if( this.paintedColor == newPaintedColor )
 		{
@@ -993,4 +990,5 @@ public class TileChest extends AENetworkPowerTile implements IMEChest, IFluidHan
 			return super.extractItems( request, mode, src );
 		}
 	}
+
 }

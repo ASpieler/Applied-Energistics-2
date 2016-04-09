@@ -76,11 +76,7 @@ public class AEBaseTile extends TileEntity implements IOrientable, ICommonTile, 
 	private EnumFacing up = null;
 
 	@Override
-	public boolean shouldRefresh(
-			final World world,
-			final BlockPos pos,
-			final IBlockState oldState,
-			final IBlockState newSate )
+	public boolean shouldRefresh( final World world, final BlockPos pos, final IBlockState oldState, final IBlockState newSate )
 	{
 		return newSate.getBlock() != oldState.getBlock(); // state dosn't change tile entities in AE2.
 	}
@@ -210,7 +206,7 @@ public class AEBaseTile extends TileEntity implements IOrientable, ICommonTile, 
 		}
 		catch( final Throwable t )
 		{
-			AELog.error( t );
+			AELog.debug( t );
 		}
 
 		stream.capacity( stream.readableBytes() );
@@ -284,7 +280,7 @@ public class AEBaseTile extends TileEntity implements IOrientable, ICommonTile, 
 		}
 		catch( final Throwable t )
 		{
-			AELog.error( t );
+			AELog.debug( t );
 		}
 
 		return output;
@@ -324,7 +320,7 @@ public class AEBaseTile extends TileEntity implements IOrientable, ICommonTile, 
 		}
 		catch( final Throwable t )
 		{
-			AELog.error( t );
+			AELog.debug( t );
 		}
 	}
 
@@ -411,12 +407,20 @@ public class AEBaseTile extends TileEntity implements IOrientable, ICommonTile, 
 	@Override
 	public EnumFacing getForward()
 	{
+		if( this.forward == null )
+		{
+			return EnumFacing.NORTH;
+		}
 		return this.forward;
 	}
 
 	@Override
 	public EnumFacing getUp()
 	{
+		if( this.up == null )
+		{
+			return EnumFacing.UP;
+		}
 		return this.up;
 	}
 

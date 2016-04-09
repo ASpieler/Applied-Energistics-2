@@ -25,11 +25,12 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import appeng.api.util.ModelGenerator;
 import appeng.block.AEBaseBlock;
+import appeng.client.ItemRenderType;
 import appeng.core.AELog;
 
 
@@ -39,7 +40,7 @@ public final class WorldRender implements ISimpleBlockRenderingHandler
 
 	private static final WorldRender INSTANCE = new WorldRender();
 	private final HashMap<AEBaseBlock, BaseBlockRender> blockRenders = new HashMap<AEBaseBlock, BaseBlockRender>();
-	private final ModelGenerator renderer = new ModelGenerator();
+	private final ModelGenerator renderer = new BakingModelGenerator();
 	private boolean hasError = false;
 
 	private WorldRender()
@@ -87,9 +88,9 @@ public final class WorldRender implements ISimpleBlockRenderingHandler
 			if( !this.hasError )
 			{
 				this.hasError = true;
-				AELog.severe( "Invalid render - item/block mismatch" );
-				AELog.severe( "		item: " + item.getUnlocalizedName() );
-				AELog.severe( "		block: " + blk.getUnlocalizedName() );
+				AELog.error( "Invalid render - item/block mismatch" );
+				AELog.error( "		item: " + item.getUnlocalizedName() );
+				AELog.error( "		block: " + blk.getUnlocalizedName() );
 			}
 		}
 	}
